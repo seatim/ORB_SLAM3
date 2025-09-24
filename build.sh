@@ -1,5 +1,7 @@
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
+JOBS=2
+
 cd Thirdparty/DBoW2
 mkdir build
 cd build
@@ -22,7 +24,7 @@ echo "Configuring and building Thirdparty/Sophus ..."
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+make -j $JOBS
 
 cd ../../../
 
@@ -37,4 +39,4 @@ echo "Configuring and building ORB_SLAM3 ..."
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j4
+make -j $JOBS
