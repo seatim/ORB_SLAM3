@@ -16,6 +16,7 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include<cstdlib>
 #include<iostream>
 #include<algorithm>
 #include<fstream>
@@ -27,6 +28,21 @@
 #include"System.h"
 
 using namespace std;
+
+int limitNImages(int nImages)
+{
+    const char *limitStr = getenv("LIMIT_NIMAGES");
+
+    if (limitStr) {
+        int limit = atoi(limitStr);
+
+        if (nImages > limit) {
+            cout << "DEBUG limiting nImages to " << limit << endl;
+            nImages = limit;
+        }
+    }
+    return nImages;
+}
 
 void LoadImages(const string &strSequence, vector<string> &vstrImageFilenames,
                 vector<double> &vTimestamps);
@@ -57,6 +73,8 @@ int main(int argc, char **argv)
     cout << endl << "-------" << endl;
     cout << "Start processing sequence ..." << endl;
     cout << "Images in the sequence: " << nImages << endl << endl;
+
+    nImages = limitNImages(nImages);
 
     // Main loop
     double t_resize = 0.f;
